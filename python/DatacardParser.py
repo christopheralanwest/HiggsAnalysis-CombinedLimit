@@ -38,7 +38,7 @@ def addDatacardParserOptions(parser):
     parser.add_option("--X-no-optimize-templates",  dest="optimizeExistingTemplates", default=True, action="store_false", help="Don't optimize templates on the fly (relevant for HZZ)")
     parser.add_option("--X-no-optimize-bound-nusances",  dest="optimizeBoundNuisances", default=True, action="store_false", help="Don't flag nuisances to have a different implementation of bounds")
     parser.add_option("--X-no-optimize-bins",  dest="optimizeTemplateBins", default=True, action="store_false", help="Don't optimize template bins (removes padding from TH1s)")
-
+    parser.add_option("--max-bin",  dest="maxBin", type="int", help="Set maximum bin of TH1, for use with blinded regions")
 
 from HiggsAnalysis.CombinedLimit.Datacard import Datacard
 from HiggsAnalysis.CombinedLimit.NuisanceModifier import doEditNuisance

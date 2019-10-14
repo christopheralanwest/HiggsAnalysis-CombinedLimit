@@ -354,6 +354,9 @@ class ShapeBuilder(ModelBuilder):
 	    self.TH1Observables = {}
 	    self.out.binVars = ROOT.RooArgSet()
             self.out.maxbins = max([shapeBins[k] for k in shapeBins.keys()])
+            if self.options.maxBin:
+                self.out.maxbins = self.options.maxBin
+                print("Changed maximum bin to " + str(self.options.maxBin))
 	    if self.options.optimizeTemplateBins:
               if self.options.verbose > 1: stderr.write("Will use binning variable CMS_th1x with %d bins\n" % self.out.maxbins)
 	      self.doVar("CMS_th1x[0,%d]" % self.out.maxbins); self.out.var("CMS_th1x").setBins(self.out.maxbins)
