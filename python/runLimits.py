@@ -8,12 +8,14 @@ parser.add_argument('-b', '--blind', default=False, help="Run with blinded data 
 parser.add_argument('-c', '--cards', action='store_true', help="Create full datacards")
 parser.add_argument('-d', '--directory', default="../../diphoton-analysis/Tools/", help="Datacard directory.")
 parser.add_argument('-o', '--old', default=False, action='store_true', help="Use old 94X ADD samples.")
+parser.add_argument('-y', '--years', default="2016,2017,2018", help="Comma delimited list of years to include in datacard.")
 args = parser.parse_args()
 
 blind_data = args.blind
 create_cards = args.cards
 relative_path = args.directory
 use_old_ADD = args.old
+datacard_years = args.years
 
 ms_values = {'NED-2_KK-1': {3000, 3500, 4000, 4500, 5000, 5500, 6000, 7000, 8000, 9000, 10000},
              'NED-4_KK-1': {3000, 3500, 4000, 4500, 5000, 5500, 6000, 7000, 8000, 9000, 10000},
@@ -33,8 +35,9 @@ if blind_data:
 else:
     extraOptions += ' --text2workspace "--max-bin 20"'
 
-regions = {"BB", "BE"}
-years = {"2016", "2017", "2018"}
+regions = ["BB", "BE"]
+years = datacard_years.split(',')
+years_out_str = '_'.join(years)
 for dimension in dimensions:
     for ms_value in ms_values[dimension]:
         name = 'ADDGravToGG_' + dimension + '_LambdaT-' + str(ms_value) + '_TuneCP2_13TeV-pythia8'
@@ -44,7 +47,7 @@ for dimension in dimensions:
             name_no_ms = 'ADDGravToGG_' + dimension
         if not blind_data:
             name_no_ms += "_lowmass"
-        outputdatacard = relative_path + "datacards/" + name + ".dat"
+        outputdatacard = relative_path + "datacards/" + name + '_' + years_out_str + ".dat"
         if create_cards:
             fulldatacardcmd = "combineCards.py "
             # combine datacards
