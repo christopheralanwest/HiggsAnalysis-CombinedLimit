@@ -9,6 +9,7 @@ parser.add_argument('-c', '--cards', action='store_true', help="Create full data
 parser.add_argument('-d', '--directory', default="../../diphoton-analysis/Tools/", help="Datacard directory.")
 parser.add_argument('-o', '--old', default=False, action='store_true', help="Use old 94X ADD samples.")
 parser.add_argument('-y', '--years', default="2016,2017,2018", help="Comma delimited list of years to include in datacard.")
+parser.add_argument('-r', '--run', default=True, action='store_true', help="Run limits.")
 args = parser.parse_args()
 
 blind_data = args.blind
@@ -16,6 +17,7 @@ create_cards = args.cards
 relative_path = args.directory
 use_old_ADD = args.old
 datacard_years = args.years
+run = args.run
 
 ms_values = {'NED-2_KK-1': {3000, 3500, 4000, 4500, 5000, 5500, 6000, 7000, 8000, 9000, 10000},
              'NED-4_KK-1': {3000, 3500, 4000, 4500, 5000, 5500, 6000, 7000, 8000, 9000, 10000},
@@ -64,4 +66,5 @@ for dimension in dimensions:
             os.system(cmd)
         cmd = 'combine -M AsymptoticLimits ' + outputdatacard + ' ' + extraOptions + ' -n ' + name_no_ms + ' -m ' + str(ms_value)
         print cmd
-        os.system(cmd)
+        if run:
+            os.system(cmd)
