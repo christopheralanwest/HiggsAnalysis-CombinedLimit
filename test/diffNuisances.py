@@ -171,7 +171,7 @@ for i in range(fpf_s.getSize()):
 	      	    hist_fit_s.GetXaxis().SetBinLabel(nuis_p_i,name)
 	      	    gr_fit_s.GetXaxis().SetBinLabel(nuis_p_i,name)
 		  hist_prefit.SetBinContent(nuis_p_i,mean_p)
-		  hist_prefit.SetBinError(nuis_p_i,sigma_p)
+                  hist_prefit.SetBinError(nuis_p_i,sigma_p)
 	      	  hist_prefit.GetXaxis().SetBinLabel(nuis_p_i,name)
 
                 if sigma_p>0: 
@@ -342,7 +342,7 @@ if options.plotfile:
     fout = ROOT.TFile(options.plotfile,"RECREATE")
     ROOT.gROOT.SetStyle("Plain")
     ROOT.gStyle.SetOptFit(1)
-    histogram = ROOT.TH1F("pulls", "Pulls", 60, -3, 3)
+    histogram = ROOT.TH1F("pulls", "Pulls", 60, -4, 4)
     for pull in pulls:
         histogram.Fill(pull)
     canvas = ROOT.TCanvas("asdf", "asdf", 800, 800)
@@ -355,6 +355,7 @@ if options.plotfile:
     fout.WriteTObject(canvas)
 
     canvas_nuis = ROOT.TCanvas("nuisances", "nuisances", 900, 600)
+    canvas_nuis.SetBottomMargin(0.25)
     hist_fit_e_s = hist_fit_s.Clone("errors_s")
     hist_fit_e_b = hist_fit_b.Clone("errors_b")
     #gr_fit_s = getGraph(hist_fit_s,-0.1)
@@ -373,12 +374,13 @@ if options.plotfile:
     hist_prefit.SetTitle("Nuisance Parameters")
     hist_prefit.SetLineColor(ROOT.kBlack)
     hist_prefit.SetFillColor(ROOT.kGray)
-    hist_prefit.SetMaximum(3)
-    hist_prefit.SetMinimum(-3)
+    hist_prefit.SetMaximum(4)
+    hist_prefit.SetMinimum(-4)
     hist_prefit.Draw("E2")
     hist_prefit.Draw("histsame")
     gr_fit_b.Draw("EPsame")
     gr_fit_s.Draw("EPsame")
+
     canvas_nuis.SetGridx()
     canvas_nuis.RedrawAxis()
     canvas_nuis.RedrawAxis('g')
