@@ -9,7 +9,7 @@ parser.add_argument('-c', '--cards', action='store_true', help="Create full data
 parser.add_argument('-d', '--directory', default="../../diphoton-analysis/Tools/", help="Datacard directory.")
 parser.add_argument('-o', '--old', default=False, action='store_true', help="Use old 94X ADD samples.")
 parser.add_argument('-y', '--years', default="2016,2017,2018", help="Comma delimited list of years to include in datacard.")
-parser.add_argument('-r', '--run', default=True, action='store_true', help="Run limits.")
+parser.add_argument('-r', '--run', default=False, action='store_true', help="Run limits.")
 args = parser.parse_args()
 
 blind_data = args.blind
